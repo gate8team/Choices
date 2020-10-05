@@ -1,4 +1,4 @@
-/*! choices.js v4.1.4 | (c) 2019 Josh Johnson | https://github.com/jshjohnson/Choices#readme */ 
+/*! choices.js v4.1.4 | (c) 2020 Josh Johnson | https://github.com/jshjohnson/Choices#readme */ 
 (function webpackUniversalModuleDefinition(root, factory) {
    //CommonJS2
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -82,7 +82,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(26)('wks');
+var store = __webpack_require__(14)('wks');
 var uid = __webpack_require__(13);
 var Symbol = __webpack_require__(3).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
@@ -402,7 +402,7 @@ var doKeysMatch = exports.doKeysMatch = function doKeysMatch(a, b) {
 /* 2 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.7' };
+var core = module.exports = { version: '2.6.11' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -572,8 +572,8 @@ var SCROLLING_SPEED = exports.SCROLLING_SPEED = 4;
 var global = __webpack_require__(3);
 var core = __webpack_require__(2);
 var hide = __webpack_require__(4);
-var redefine = __webpack_require__(24);
-var ctx = __webpack_require__(14);
+var redefine = __webpack_require__(25);
+var ctx = __webpack_require__(15);
 var PROTOTYPE = 'prototype';
 
 var $export = function (type, name, source) {
@@ -661,7 +661,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(22)(function () {
+module.exports = !__webpack_require__(23)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -705,8 +705,26 @@ module.exports = function (key) {
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var core = __webpack_require__(2);
+var global = __webpack_require__(3);
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: core.version,
+  mode: __webpack_require__(26) ? 'pure' : 'global',
+  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+});
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // optional / simple context binding
-var aFunction = __webpack_require__(46);
+var aFunction = __webpack_require__(47);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -728,7 +746,7 @@ module.exports = function (fn, that, length) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -739,18 +757,18 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(17);
+var defined = __webpack_require__(18);
 module.exports = function (it) {
   return Object(defined(it));
 };
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -761,11 +779,11 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(19);
+var toInteger = __webpack_require__(20);
 var min = Math.min;
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -773,7 +791,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -785,17 +803,17 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(26)('keys');
+var shared = __webpack_require__(14)('keys');
 var uid = __webpack_require__(13);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
@@ -803,7 +821,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -816,7 +834,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(9);
@@ -829,15 +847,15 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(3);
 var hide = __webpack_require__(4);
 var has = __webpack_require__(11);
 var SRC = __webpack_require__(13)('src');
+var $toString = __webpack_require__(46);
 var TO_STRING = 'toString';
-var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
 
 __webpack_require__(2).inspectSource = function (it) {
@@ -866,40 +884,22 @@ __webpack_require__(2).inspectSource = function (it) {
 
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(15);
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-
-/***/ }),
 /* 26 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var core = __webpack_require__(2);
-var global = __webpack_require__(3);
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-
-(module.exports = function (key, value) {
-  return store[key] || (store[key] = value !== undefined ? value : {});
-})('versions', []).push({
-  version: core.version,
-  mode: __webpack_require__(27) ? 'pure' : 'global',
-  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
-});
+module.exports = false;
 
 
 /***/ }),
 /* 27 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = false;
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(16);
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
 
 
 /***/ }),
@@ -920,8 +920,8 @@ module.exports = function (key) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(25);
-var defined = __webpack_require__(17);
+var IObject = __webpack_require__(27);
+var defined = __webpack_require__(18);
 module.exports = function (it) {
   return IObject(defined(it));
 };
@@ -934,8 +934,8 @@ module.exports = function (it) {
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = __webpack_require__(29);
-var toLength = __webpack_require__(18);
-var toAbsoluteIndex = __webpack_require__(60);
+var toLength = __webpack_require__(19);
+var toAbsoluteIndex = __webpack_require__(61);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -987,7 +987,7 @@ module.exports = function (it, tag, stat) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // EXTERNAL MODULE: ./node_modules/lodash-es/_freeGlobal.js
-var _freeGlobal = __webpack_require__(74);
+var _freeGlobal = __webpack_require__(75);
 
 // CONCATENATED MODULE: ./node_modules/lodash-es/_root.js
 
@@ -1231,7 +1231,7 @@ function isPlainObject(value) {
 /* harmony default export */ var lodash_es_isPlainObject = (isPlainObject);
 
 // EXTERNAL MODULE: ./node_modules/symbol-observable/es/index.js
-var es = __webpack_require__(75);
+var es = __webpack_require__(76);
 
 // CONCATENATED MODULE: ./node_modules/redux/es/createStore.js
 
@@ -1936,7 +1936,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.TEMPLATES = undefined;
 
-var _classnames = __webpack_require__(89);
+var _classnames = __webpack_require__(90);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -2061,23 +2061,23 @@ var _deepmerge2 = _interopRequireDefault(_deepmerge);
 
 __webpack_require__(41);
 
-var _store2 = __webpack_require__(73);
+var _store2 = __webpack_require__(74);
 
 var _store3 = _interopRequireDefault(_store2);
 
-var _components = __webpack_require__(82);
+var _components = __webpack_require__(83);
 
 var _constants = __webpack_require__(5);
 
 var _templates = __webpack_require__(36);
 
-var _choices = __webpack_require__(90);
+var _choices = __webpack_require__(91);
 
-var _items = __webpack_require__(91);
+var _items = __webpack_require__(92);
 
-var _groups = __webpack_require__(92);
+var _groups = __webpack_require__(93);
 
-var _misc = __webpack_require__(93);
+var _misc = __webpack_require__(94);
 
 var _utils = __webpack_require__(1);
 
@@ -3498,7 +3498,7 @@ var Choices = function () {
           shiftKey = event.shiftKey;
       // If we have our mouse down on the scrollbar and are on IE11...
 
-      if (target === this.choiceList && (0, _utils.isIE11)()) {
+      if (this.choiceList.element.contains(target) && (0, _utils.isIE11)()) {
         this._isScrollingOnIe = true;
       }
 
@@ -4239,1001 +4239,14 @@ module.exports = Choices;
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
- * Fuse.js v3.2.0 - Lightweight fuzzy-search (http://fusejs.io)
+ * Fuse.js v3.6.1 - Lightweight fuzzy-search (http://fusejs.io)
  * 
  * Copyright (c) 2012-2017 Kirollos Risk (http://kiro.me)
  * All Rights Reserved. Apache Software License 2.0
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(true)
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define("Fuse", [], factory);
-	else if(typeof exports === 'object')
-		exports["Fuse"] = factory();
-	else
-		root["Fuse"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (obj) {
-  return Object.prototype.toString.call(obj) === '[object Array]';
-};
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var bitapRegexSearch = __webpack_require__(5);
-var bitapSearch = __webpack_require__(7);
-var patternAlphabet = __webpack_require__(4);
-
-var Bitap = function () {
-  function Bitap(pattern, _ref) {
-    var _ref$location = _ref.location,
-        location = _ref$location === undefined ? 0 : _ref$location,
-        _ref$distance = _ref.distance,
-        distance = _ref$distance === undefined ? 100 : _ref$distance,
-        _ref$threshold = _ref.threshold,
-        threshold = _ref$threshold === undefined ? 0.6 : _ref$threshold,
-        _ref$maxPatternLength = _ref.maxPatternLength,
-        maxPatternLength = _ref$maxPatternLength === undefined ? 32 : _ref$maxPatternLength,
-        _ref$isCaseSensitive = _ref.isCaseSensitive,
-        isCaseSensitive = _ref$isCaseSensitive === undefined ? false : _ref$isCaseSensitive,
-        _ref$tokenSeparator = _ref.tokenSeparator,
-        tokenSeparator = _ref$tokenSeparator === undefined ? / +/g : _ref$tokenSeparator,
-        _ref$findAllMatches = _ref.findAllMatches,
-        findAllMatches = _ref$findAllMatches === undefined ? false : _ref$findAllMatches,
-        _ref$minMatchCharLeng = _ref.minMatchCharLength,
-        minMatchCharLength = _ref$minMatchCharLeng === undefined ? 1 : _ref$minMatchCharLeng;
-
-    _classCallCheck(this, Bitap);
-
-    this.options = {
-      location: location,
-      distance: distance,
-      threshold: threshold,
-      maxPatternLength: maxPatternLength,
-      isCaseSensitive: isCaseSensitive,
-      tokenSeparator: tokenSeparator,
-      findAllMatches: findAllMatches,
-      minMatchCharLength: minMatchCharLength
-    };
-
-    this.pattern = this.options.isCaseSensitive ? pattern : pattern.toLowerCase();
-
-    if (this.pattern.length <= maxPatternLength) {
-      this.patternAlphabet = patternAlphabet(this.pattern);
-    }
-  }
-
-  _createClass(Bitap, [{
-    key: 'search',
-    value: function search(text) {
-      if (!this.options.isCaseSensitive) {
-        text = text.toLowerCase();
-      }
-
-      // Exact match
-      if (this.pattern === text) {
-        return {
-          isMatch: true,
-          score: 0,
-          matchedIndices: [[0, text.length - 1]]
-        };
-      }
-
-      // When pattern length is greater than the machine word length, just do a a regex comparison
-      var _options = this.options,
-          maxPatternLength = _options.maxPatternLength,
-          tokenSeparator = _options.tokenSeparator;
-
-      if (this.pattern.length > maxPatternLength) {
-        return bitapRegexSearch(text, this.pattern, tokenSeparator);
-      }
-
-      // Otherwise, use Bitap algorithm
-      var _options2 = this.options,
-          location = _options2.location,
-          distance = _options2.distance,
-          threshold = _options2.threshold,
-          findAllMatches = _options2.findAllMatches,
-          minMatchCharLength = _options2.minMatchCharLength;
-
-      return bitapSearch(text, this.pattern, this.patternAlphabet, {
-        location: location,
-        distance: distance,
-        threshold: threshold,
-        findAllMatches: findAllMatches,
-        minMatchCharLength: minMatchCharLength
-      });
-    }
-  }]);
-
-  return Bitap;
-}();
-
-// let x = new Bitap("od mn war", {})
-// let result = x.search("Old Man's War")
-// console.log(result)
-
-module.exports = Bitap;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var isArray = __webpack_require__(0);
-
-var deepValue = function deepValue(obj, path, list) {
-  if (!path) {
-    // If there's no path left, we've gotten to the object we care about.
-    list.push(obj);
-  } else {
-    var dotIndex = path.indexOf('.');
-    var firstSegment = path;
-    var remaining = null;
-
-    if (dotIndex !== -1) {
-      firstSegment = path.slice(0, dotIndex);
-      remaining = path.slice(dotIndex + 1);
-    }
-
-    var value = obj[firstSegment];
-
-    if (value !== null && value !== undefined) {
-      if (!remaining && (typeof value === 'string' || typeof value === 'number')) {
-        list.push(value.toString());
-      } else if (isArray(value)) {
-        // Search each item in the array.
-        for (var i = 0, len = value.length; i < len; i += 1) {
-          deepValue(value[i], remaining, list);
-        }
-      } else if (remaining) {
-        // An object. Recurse further.
-        deepValue(value, remaining, list);
-      }
-    }
-  }
-
-  return list;
-};
-
-module.exports = function (obj, path) {
-  return deepValue(obj, path, []);
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function () {
-  var matchmask = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var minMatchCharLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-
-  var matchedIndices = [];
-  var start = -1;
-  var end = -1;
-  var i = 0;
-
-  for (var len = matchmask.length; i < len; i += 1) {
-    var match = matchmask[i];
-    if (match && start === -1) {
-      start = i;
-    } else if (!match && start !== -1) {
-      end = i - 1;
-      if (end - start + 1 >= minMatchCharLength) {
-        matchedIndices.push([start, end]);
-      }
-      start = -1;
-    }
-  }
-
-  // (i-1 - start) + 1 => i - start
-  if (matchmask[i - 1] && i - start >= minMatchCharLength) {
-    matchedIndices.push([start, i - 1]);
-  }
-
-  return matchedIndices;
-};
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (pattern) {
-  var mask = {};
-  var len = pattern.length;
-
-  for (var i = 0; i < len; i += 1) {
-    mask[pattern.charAt(i)] = 0;
-  }
-
-  for (var _i = 0; _i < len; _i += 1) {
-    mask[pattern.charAt(_i)] |= 1 << len - _i - 1;
-  }
-
-  return mask;
-};
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var SPECIAL_CHARS_REGEX = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;
-
-module.exports = function (text, pattern) {
-  var tokenSeparator = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : / +/g;
-
-  var regex = new RegExp(pattern.replace(SPECIAL_CHARS_REGEX, '\\$&').replace(tokenSeparator, '|'));
-  var matches = text.match(regex);
-  var isMatch = !!matches;
-  var matchedIndices = [];
-
-  if (isMatch) {
-    for (var i = 0, matchesLen = matches.length; i < matchesLen; i += 1) {
-      var match = matches[i];
-      matchedIndices.push([text.indexOf(match), match.length - 1]);
-    }
-  }
-
-  return {
-    // TODO: revisit this score
-    score: isMatch ? 0.5 : 1,
-    isMatch: isMatch,
-    matchedIndices: matchedIndices
-  };
-};
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (pattern, _ref) {
-  var _ref$errors = _ref.errors,
-      errors = _ref$errors === undefined ? 0 : _ref$errors,
-      _ref$currentLocation = _ref.currentLocation,
-      currentLocation = _ref$currentLocation === undefined ? 0 : _ref$currentLocation,
-      _ref$expectedLocation = _ref.expectedLocation,
-      expectedLocation = _ref$expectedLocation === undefined ? 0 : _ref$expectedLocation,
-      _ref$distance = _ref.distance,
-      distance = _ref$distance === undefined ? 100 : _ref$distance;
-
-  var accuracy = errors / pattern.length;
-  var proximity = Math.abs(expectedLocation - currentLocation);
-
-  if (!distance) {
-    // Dodge divide by zero error.
-    return proximity ? 1.0 : accuracy;
-  }
-
-  return accuracy + proximity / distance;
-};
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var bitapScore = __webpack_require__(6);
-var matchedIndices = __webpack_require__(3);
-
-module.exports = function (text, pattern, patternAlphabet, _ref) {
-  var _ref$location = _ref.location,
-      location = _ref$location === undefined ? 0 : _ref$location,
-      _ref$distance = _ref.distance,
-      distance = _ref$distance === undefined ? 100 : _ref$distance,
-      _ref$threshold = _ref.threshold,
-      threshold = _ref$threshold === undefined ? 0.6 : _ref$threshold,
-      _ref$findAllMatches = _ref.findAllMatches,
-      findAllMatches = _ref$findAllMatches === undefined ? false : _ref$findAllMatches,
-      _ref$minMatchCharLeng = _ref.minMatchCharLength,
-      minMatchCharLength = _ref$minMatchCharLeng === undefined ? 1 : _ref$minMatchCharLeng;
-
-  var expectedLocation = location;
-  // Set starting location at beginning text and initialize the alphabet.
-  var textLen = text.length;
-  // Highest score beyond which we give up.
-  var currentThreshold = threshold;
-  // Is there a nearby exact match? (speedup)
-  var bestLocation = text.indexOf(pattern, expectedLocation);
-
-  var patternLen = pattern.length;
-
-  // a mask of the matches
-  var matchMask = [];
-  for (var i = 0; i < textLen; i += 1) {
-    matchMask[i] = 0;
-  }
-
-  if (bestLocation !== -1) {
-    var score = bitapScore(pattern, {
-      errors: 0,
-      currentLocation: bestLocation,
-      expectedLocation: expectedLocation,
-      distance: distance
-    });
-    currentThreshold = Math.min(score, currentThreshold);
-
-    // What about in the other direction? (speed up)
-    bestLocation = text.lastIndexOf(pattern, expectedLocation + patternLen);
-
-    if (bestLocation !== -1) {
-      var _score = bitapScore(pattern, {
-        errors: 0,
-        currentLocation: bestLocation,
-        expectedLocation: expectedLocation,
-        distance: distance
-      });
-      currentThreshold = Math.min(_score, currentThreshold);
-    }
-  }
-
-  // Reset the best location
-  bestLocation = -1;
-
-  var lastBitArr = [];
-  var finalScore = 1;
-  var binMax = patternLen + textLen;
-
-  var mask = 1 << patternLen - 1;
-
-  for (var _i = 0; _i < patternLen; _i += 1) {
-    // Scan for the best match; each iteration allows for one more error.
-    // Run a binary search to determine how far from the match location we can stray
-    // at this error level.
-    var binMin = 0;
-    var binMid = binMax;
-
-    while (binMin < binMid) {
-      var _score3 = bitapScore(pattern, {
-        errors: _i,
-        currentLocation: expectedLocation + binMid,
-        expectedLocation: expectedLocation,
-        distance: distance
-      });
-
-      if (_score3 <= currentThreshold) {
-        binMin = binMid;
-      } else {
-        binMax = binMid;
-      }
-
-      binMid = Math.floor((binMax - binMin) / 2 + binMin);
-    }
-
-    // Use the result from this iteration as the maximum for the next.
-    binMax = binMid;
-
-    var start = Math.max(1, expectedLocation - binMid + 1);
-    var finish = findAllMatches ? textLen : Math.min(expectedLocation + binMid, textLen) + patternLen;
-
-    // Initialize the bit array
-    var bitArr = Array(finish + 2);
-
-    bitArr[finish + 1] = (1 << _i) - 1;
-
-    for (var j = finish; j >= start; j -= 1) {
-      var currentLocation = j - 1;
-      var charMatch = patternAlphabet[text.charAt(currentLocation)];
-
-      if (charMatch) {
-        matchMask[currentLocation] = 1;
-      }
-
-      // First pass: exact match
-      bitArr[j] = (bitArr[j + 1] << 1 | 1) & charMatch;
-
-      // Subsequent passes: fuzzy match
-      if (_i !== 0) {
-        bitArr[j] |= (lastBitArr[j + 1] | lastBitArr[j]) << 1 | 1 | lastBitArr[j + 1];
-      }
-
-      if (bitArr[j] & mask) {
-        finalScore = bitapScore(pattern, {
-          errors: _i,
-          currentLocation: currentLocation,
-          expectedLocation: expectedLocation,
-          distance: distance
-        });
-
-        // This match will almost certainly be better than any existing match.
-        // But check anyway.
-        if (finalScore <= currentThreshold) {
-          // Indeed it is
-          currentThreshold = finalScore;
-          bestLocation = currentLocation;
-
-          // Already passed `loc`, downhill from here on in.
-          if (bestLocation <= expectedLocation) {
-            break;
-          }
-
-          // When passing `bestLocation`, don't exceed our current distance from `expectedLocation`.
-          start = Math.max(1, 2 * expectedLocation - bestLocation);
-        }
-      }
-    }
-
-    // No hope for a (better) match at greater error levels.
-    var _score2 = bitapScore(pattern, {
-      errors: _i + 1,
-      currentLocation: expectedLocation,
-      expectedLocation: expectedLocation,
-      distance: distance
-    });
-
-    if (_score2 > currentThreshold) {
-      break;
-    }
-
-    lastBitArr = bitArr;
-  }
-
-  // Count exact matches (those with a score of 0) to be "almost" exact
-  return {
-    isMatch: bestLocation >= 0,
-    score: finalScore === 0 ? 0.001 : finalScore,
-    matchedIndices: matchedIndices(matchMask, minMatchCharLength)
-  };
-};
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Bitap = __webpack_require__(1);
-var deepValue = __webpack_require__(2);
-var isArray = __webpack_require__(0);
-
-var Fuse = function () {
-  function Fuse(list, _ref) {
-    var _ref$location = _ref.location,
-        location = _ref$location === undefined ? 0 : _ref$location,
-        _ref$distance = _ref.distance,
-        distance = _ref$distance === undefined ? 100 : _ref$distance,
-        _ref$threshold = _ref.threshold,
-        threshold = _ref$threshold === undefined ? 0.6 : _ref$threshold,
-        _ref$maxPatternLength = _ref.maxPatternLength,
-        maxPatternLength = _ref$maxPatternLength === undefined ? 32 : _ref$maxPatternLength,
-        _ref$caseSensitive = _ref.caseSensitive,
-        caseSensitive = _ref$caseSensitive === undefined ? false : _ref$caseSensitive,
-        _ref$tokenSeparator = _ref.tokenSeparator,
-        tokenSeparator = _ref$tokenSeparator === undefined ? / +/g : _ref$tokenSeparator,
-        _ref$findAllMatches = _ref.findAllMatches,
-        findAllMatches = _ref$findAllMatches === undefined ? false : _ref$findAllMatches,
-        _ref$minMatchCharLeng = _ref.minMatchCharLength,
-        minMatchCharLength = _ref$minMatchCharLeng === undefined ? 1 : _ref$minMatchCharLeng,
-        _ref$id = _ref.id,
-        id = _ref$id === undefined ? null : _ref$id,
-        _ref$keys = _ref.keys,
-        keys = _ref$keys === undefined ? [] : _ref$keys,
-        _ref$shouldSort = _ref.shouldSort,
-        shouldSort = _ref$shouldSort === undefined ? true : _ref$shouldSort,
-        _ref$getFn = _ref.getFn,
-        getFn = _ref$getFn === undefined ? deepValue : _ref$getFn,
-        _ref$sortFn = _ref.sortFn,
-        sortFn = _ref$sortFn === undefined ? function (a, b) {
-      return a.score - b.score;
-    } : _ref$sortFn,
-        _ref$tokenize = _ref.tokenize,
-        tokenize = _ref$tokenize === undefined ? false : _ref$tokenize,
-        _ref$matchAllTokens = _ref.matchAllTokens,
-        matchAllTokens = _ref$matchAllTokens === undefined ? false : _ref$matchAllTokens,
-        _ref$includeMatches = _ref.includeMatches,
-        includeMatches = _ref$includeMatches === undefined ? false : _ref$includeMatches,
-        _ref$includeScore = _ref.includeScore,
-        includeScore = _ref$includeScore === undefined ? false : _ref$includeScore,
-        _ref$verbose = _ref.verbose,
-        verbose = _ref$verbose === undefined ? false : _ref$verbose;
-
-    _classCallCheck(this, Fuse);
-
-    this.options = {
-      location: location,
-      distance: distance,
-      threshold: threshold,
-      maxPatternLength: maxPatternLength,
-      isCaseSensitive: caseSensitive,
-      tokenSeparator: tokenSeparator,
-      findAllMatches: findAllMatches,
-      minMatchCharLength: minMatchCharLength,
-      id: id,
-      keys: keys,
-      includeMatches: includeMatches,
-      includeScore: includeScore,
-      shouldSort: shouldSort,
-      getFn: getFn,
-      sortFn: sortFn,
-      verbose: verbose,
-      tokenize: tokenize,
-      matchAllTokens: matchAllTokens
-    };
-
-    this.setCollection(list);
-  }
-
-  _createClass(Fuse, [{
-    key: 'setCollection',
-    value: function setCollection(list) {
-      this.list = list;
-      return list;
-    }
-  }, {
-    key: 'search',
-    value: function search(pattern) {
-      this._log('---------\nSearch pattern: "' + pattern + '"');
-
-      var _prepareSearchers2 = this._prepareSearchers(pattern),
-          tokenSearchers = _prepareSearchers2.tokenSearchers,
-          fullSearcher = _prepareSearchers2.fullSearcher;
-
-      var _search2 = this._search(tokenSearchers, fullSearcher),
-          weights = _search2.weights,
-          results = _search2.results;
-
-      this._computeScore(weights, results);
-
-      if (this.options.shouldSort) {
-        this._sort(results);
-      }
-
-      return this._format(results);
-    }
-  }, {
-    key: '_prepareSearchers',
-    value: function _prepareSearchers() {
-      var pattern = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-      var tokenSearchers = [];
-
-      if (this.options.tokenize) {
-        // Tokenize on the separator
-        var tokens = pattern.split(this.options.tokenSeparator);
-        for (var i = 0, len = tokens.length; i < len; i += 1) {
-          tokenSearchers.push(new Bitap(tokens[i], this.options));
-        }
-      }
-
-      var fullSearcher = new Bitap(pattern, this.options);
-
-      return { tokenSearchers: tokenSearchers, fullSearcher: fullSearcher };
-    }
-  }, {
-    key: '_search',
-    value: function _search() {
-      var tokenSearchers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-      var fullSearcher = arguments[1];
-
-      var list = this.list;
-      var resultMap = {};
-      var results = [];
-
-      // Check the first item in the list, if it's a string, then we assume
-      // that every item in the list is also a string, and thus it's a flattened array.
-      if (typeof list[0] === 'string') {
-        // Iterate over every item
-        for (var i = 0, len = list.length; i < len; i += 1) {
-          this._analyze({
-            key: '',
-            value: list[i],
-            record: i,
-            index: i
-          }, {
-            resultMap: resultMap,
-            results: results,
-            tokenSearchers: tokenSearchers,
-            fullSearcher: fullSearcher
-          });
-        }
-
-        return { weights: null, results: results };
-      }
-
-      // Otherwise, the first item is an Object (hopefully), and thus the searching
-      // is done on the values of the keys of each item.
-      var weights = {};
-      for (var _i = 0, _len = list.length; _i < _len; _i += 1) {
-        var item = list[_i];
-        // Iterate over every key
-        for (var j = 0, keysLen = this.options.keys.length; j < keysLen; j += 1) {
-          var key = this.options.keys[j];
-          if (typeof key !== 'string') {
-            weights[key.name] = {
-              weight: 1 - key.weight || 1
-            };
-            if (key.weight <= 0 || key.weight > 1) {
-              throw new Error('Key weight has to be > 0 and <= 1');
-            }
-            key = key.name;
-          } else {
-            weights[key] = {
-              weight: 1
-            };
-          }
-
-          this._analyze({
-            key: key,
-            value: this.options.getFn(item, key),
-            record: item,
-            index: _i
-          }, {
-            resultMap: resultMap,
-            results: results,
-            tokenSearchers: tokenSearchers,
-            fullSearcher: fullSearcher
-          });
-        }
-      }
-
-      return { weights: weights, results: results };
-    }
-  }, {
-    key: '_analyze',
-    value: function _analyze(_ref2, _ref3) {
-      var key = _ref2.key,
-          _ref2$arrayIndex = _ref2.arrayIndex,
-          arrayIndex = _ref2$arrayIndex === undefined ? -1 : _ref2$arrayIndex,
-          value = _ref2.value,
-          record = _ref2.record,
-          index = _ref2.index;
-      var _ref3$tokenSearchers = _ref3.tokenSearchers,
-          tokenSearchers = _ref3$tokenSearchers === undefined ? [] : _ref3$tokenSearchers,
-          _ref3$fullSearcher = _ref3.fullSearcher,
-          fullSearcher = _ref3$fullSearcher === undefined ? [] : _ref3$fullSearcher,
-          _ref3$resultMap = _ref3.resultMap,
-          resultMap = _ref3$resultMap === undefined ? {} : _ref3$resultMap,
-          _ref3$results = _ref3.results,
-          results = _ref3$results === undefined ? [] : _ref3$results;
-
-      // Check if the texvaluet can be searched
-      if (value === undefined || value === null) {
-        return;
-      }
-
-      var exists = false;
-      var averageScore = -1;
-      var numTextMatches = 0;
-
-      if (typeof value === 'string') {
-        this._log('\nKey: ' + (key === '' ? '-' : key));
-
-        var mainSearchResult = fullSearcher.search(value);
-        this._log('Full text: "' + value + '", score: ' + mainSearchResult.score);
-
-        if (this.options.tokenize) {
-          var words = value.split(this.options.tokenSeparator);
-          var scores = [];
-
-          for (var i = 0; i < tokenSearchers.length; i += 1) {
-            var tokenSearcher = tokenSearchers[i];
-
-            this._log('\nPattern: "' + tokenSearcher.pattern + '"');
-
-            // let tokenScores = []
-            var hasMatchInText = false;
-
-            for (var j = 0; j < words.length; j += 1) {
-              var word = words[j];
-              var tokenSearchResult = tokenSearcher.search(word);
-              var obj = {};
-              if (tokenSearchResult.isMatch) {
-                obj[word] = tokenSearchResult.score;
-                exists = true;
-                hasMatchInText = true;
-                scores.push(tokenSearchResult.score);
-              } else {
-                obj[word] = 1;
-                if (!this.options.matchAllTokens) {
-                  scores.push(1);
-                }
-              }
-              this._log('Token: "' + word + '", score: ' + obj[word]);
-              // tokenScores.push(obj)
-            }
-
-            if (hasMatchInText) {
-              numTextMatches += 1;
-            }
-          }
-
-          averageScore = scores[0];
-          var scoresLen = scores.length;
-          for (var _i2 = 1; _i2 < scoresLen; _i2 += 1) {
-            averageScore += scores[_i2];
-          }
-          averageScore = averageScore / scoresLen;
-
-          this._log('Token score average:', averageScore);
-        }
-
-        var finalScore = mainSearchResult.score;
-        if (averageScore > -1) {
-          finalScore = (finalScore + averageScore) / 2;
-        }
-
-        this._log('Score average:', finalScore);
-
-        var checkTextMatches = this.options.tokenize && this.options.matchAllTokens ? numTextMatches >= tokenSearchers.length : true;
-
-        this._log('\nCheck Matches: ' + checkTextMatches);
-
-        // If a match is found, add the item to <rawResults>, including its score
-        if ((exists || mainSearchResult.isMatch) && checkTextMatches) {
-          // Check if the item already exists in our results
-          var existingResult = resultMap[index];
-          if (existingResult) {
-            // Use the lowest score
-            // existingResult.score, bitapResult.score
-            existingResult.output.push({
-              key: key,
-              arrayIndex: arrayIndex,
-              value: value,
-              score: finalScore,
-              matchedIndices: mainSearchResult.matchedIndices
-            });
-          } else {
-            // Add it to the raw result list
-            resultMap[index] = {
-              item: record,
-              output: [{
-                key: key,
-                arrayIndex: arrayIndex,
-                value: value,
-                score: finalScore,
-                matchedIndices: mainSearchResult.matchedIndices
-              }]
-            };
-
-            results.push(resultMap[index]);
-          }
-        }
-      } else if (isArray(value)) {
-        for (var _i3 = 0, len = value.length; _i3 < len; _i3 += 1) {
-          this._analyze({
-            key: key,
-            arrayIndex: _i3,
-            value: value[_i3],
-            record: record,
-            index: index
-          }, {
-            resultMap: resultMap,
-            results: results,
-            tokenSearchers: tokenSearchers,
-            fullSearcher: fullSearcher
-          });
-        }
-      }
-    }
-  }, {
-    key: '_computeScore',
-    value: function _computeScore(weights, results) {
-      this._log('\n\nComputing score:\n');
-
-      for (var i = 0, len = results.length; i < len; i += 1) {
-        var output = results[i].output;
-        var scoreLen = output.length;
-
-        var totalScore = 0;
-        var bestScore = 1;
-
-        for (var j = 0; j < scoreLen; j += 1) {
-          var weight = weights ? weights[output[j].key].weight : 1;
-          var score = weight === 1 ? output[j].score : output[j].score || 0.001;
-          var nScore = score * weight;
-
-          if (weight !== 1) {
-            bestScore = Math.min(bestScore, nScore);
-          } else {
-            output[j].nScore = nScore;
-            totalScore += nScore;
-          }
-        }
-
-        results[i].score = bestScore === 1 ? totalScore / scoreLen : bestScore;
-
-        this._log(results[i]);
-      }
-    }
-  }, {
-    key: '_sort',
-    value: function _sort(results) {
-      this._log('\n\nSorting....');
-      results.sort(this.options.sortFn);
-    }
-  }, {
-    key: '_format',
-    value: function _format(results) {
-      var finalOutput = [];
-
-      this._log('\n\nOutput:\n\n', JSON.stringify(results));
-
-      var transformers = [];
-
-      if (this.options.includeMatches) {
-        transformers.push(function (result, data) {
-          var output = result.output;
-          data.matches = [];
-
-          for (var i = 0, len = output.length; i < len; i += 1) {
-            var item = output[i];
-
-            if (item.matchedIndices.length === 0) {
-              continue;
-            }
-
-            var obj = {
-              indices: item.matchedIndices,
-              value: item.value
-            };
-            if (item.key) {
-              obj.key = item.key;
-            }
-            if (item.hasOwnProperty('arrayIndex') && item.arrayIndex > -1) {
-              obj.arrayIndex = item.arrayIndex;
-            }
-            data.matches.push(obj);
-          }
-        });
-      }
-
-      if (this.options.includeScore) {
-        transformers.push(function (result, data) {
-          data.score = result.score;
-        });
-      }
-
-      for (var i = 0, len = results.length; i < len; i += 1) {
-        var result = results[i];
-
-        if (this.options.id) {
-          result.item = this.options.getFn(result.item, this.options.id)[0];
-        }
-
-        if (!transformers.length) {
-          finalOutput.push(result.item);
-          continue;
-        }
-
-        var data = {
-          item: result.item
-        };
-
-        for (var j = 0, _len2 = transformers.length; j < _len2; j += 1) {
-          transformers[j](result, data);
-        }
-
-        finalOutput.push(data);
-      }
-
-      return finalOutput;
-    }
-  }, {
-    key: '_log',
-    value: function _log() {
-      if (this.options.verbose) {
-        var _console;
-
-        (_console = console).log.apply(_console, arguments);
-      }
-    }
-  }]);
-
-  return Fuse;
-}();
-
-module.exports = Fuse;
-
-/***/ })
-/******/ ]);
-});
-//# sourceMappingURL=fuse.js.map
+!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define("Fuse",[],t):"object"==typeof exports?exports.Fuse=t():e.Fuse=t()}(this,function(){return function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=0)}([function(e,t,r){function n(e){return(n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function o(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}var i=r(1),a=r(7),s=a.get,c=(a.deepValue,a.isArray),h=function(){function e(t,r){var n=r.location,o=void 0===n?0:n,i=r.distance,a=void 0===i?100:i,c=r.threshold,h=void 0===c?.6:c,l=r.maxPatternLength,u=void 0===l?32:l,f=r.caseSensitive,v=void 0!==f&&f,p=r.tokenSeparator,d=void 0===p?/ +/g:p,g=r.findAllMatches,y=void 0!==g&&g,m=r.minMatchCharLength,k=void 0===m?1:m,b=r.id,S=void 0===b?null:b,x=r.keys,M=void 0===x?[]:x,_=r.shouldSort,w=void 0===_||_,L=r.getFn,A=void 0===L?s:L,O=r.sortFn,C=void 0===O?function(e,t){return e.score-t.score}:O,j=r.tokenize,P=void 0!==j&&j,I=r.matchAllTokens,F=void 0!==I&&I,T=r.includeMatches,N=void 0!==T&&T,z=r.includeScore,E=void 0!==z&&z,W=r.verbose,K=void 0!==W&&W;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={location:o,distance:a,threshold:h,maxPatternLength:u,isCaseSensitive:v,tokenSeparator:d,findAllMatches:y,minMatchCharLength:k,id:S,keys:M,includeMatches:N,includeScore:E,shouldSort:w,getFn:A,sortFn:C,verbose:K,tokenize:P,matchAllTokens:F},this.setCollection(t),this._processKeys(M)}var t,r,a;return t=e,(r=[{key:"setCollection",value:function(e){return this.list=e,e}},{key:"_processKeys",value:function(e){if(this._keyWeights={},this._keyNames=[],e.length&&"string"==typeof e[0])for(var t=0,r=e.length;t<r;t+=1){var n=e[t];this._keyWeights[n]=1,this._keyNames.push(n)}else{for(var o=null,i=null,a=0,s=0,c=e.length;s<c;s+=1){var h=e[s];if(!h.hasOwnProperty("name"))throw new Error('Missing "name" property in key object');var l=h.name;if(this._keyNames.push(l),!h.hasOwnProperty("weight"))throw new Error('Missing "weight" property in key object');var u=h.weight;if(u<0||u>1)throw new Error('"weight" property in key must bein the range of [0, 1)');i=null==i?u:Math.max(i,u),o=null==o?u:Math.min(o,u),this._keyWeights[l]=u,a+=u}if(a>1)throw new Error("Total of weights cannot exceed 1")}}},{key:"search",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{limit:!1};this._log('---------\nSearch pattern: "'.concat(e,'"'));var r=this._prepareSearchers(e),n=r.tokenSearchers,o=r.fullSearcher,i=this._search(n,o);return this._computeScore(i),this.options.shouldSort&&this._sort(i),t.limit&&"number"==typeof t.limit&&(i=i.slice(0,t.limit)),this._format(i)}},{key:"_prepareSearchers",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=[];if(this.options.tokenize)for(var r=e.split(this.options.tokenSeparator),n=0,o=r.length;n<o;n+=1)t.push(new i(r[n],this.options));return{tokenSearchers:t,fullSearcher:new i(e,this.options)}}},{key:"_search",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1?arguments[1]:void 0,r=this.list,n={},o=[];if("string"==typeof r[0]){for(var i=0,a=r.length;i<a;i+=1)this._analyze({key:"",value:r[i],record:i,index:i},{resultMap:n,results:o,tokenSearchers:e,fullSearcher:t});return o}for(var s=0,c=r.length;s<c;s+=1)for(var h=r[s],l=0,u=this._keyNames.length;l<u;l+=1){var f=this._keyNames[l];this._analyze({key:f,value:this.options.getFn(h,f),record:h,index:s},{resultMap:n,results:o,tokenSearchers:e,fullSearcher:t})}return o}},{key:"_analyze",value:function(e,t){var r=this,n=e.key,o=e.arrayIndex,i=void 0===o?-1:o,a=e.value,s=e.record,h=e.index,l=t.tokenSearchers,u=void 0===l?[]:l,f=t.fullSearcher,v=t.resultMap,p=void 0===v?{}:v,d=t.results,g=void 0===d?[]:d;!function e(t,o,i,a){if(null!=o)if("string"==typeof o){var s=!1,h=-1,l=0;r._log("\nKey: ".concat(""===n?"--":n));var v=f.search(o);if(r._log('Full text: "'.concat(o,'", score: ').concat(v.score)),r.options.tokenize){for(var d=o.split(r.options.tokenSeparator),y=d.length,m=[],k=0,b=u.length;k<b;k+=1){var S=u[k];r._log('\nPattern: "'.concat(S.pattern,'"'));for(var x=!1,M=0;M<y;M+=1){var _=d[M],w=S.search(_),L={};w.isMatch?(L[_]=w.score,s=!0,x=!0,m.push(w.score)):(L[_]=1,r.options.matchAllTokens||m.push(1)),r._log('Token: "'.concat(_,'", score: ').concat(L[_]))}x&&(l+=1)}h=m[0];for(var A=m.length,O=1;O<A;O+=1)h+=m[O];h/=A,r._log("Token score average:",h)}var C=v.score;h>-1&&(C=(C+h)/2),r._log("Score average:",C);var j=!r.options.tokenize||!r.options.matchAllTokens||l>=u.length;if(r._log("\nCheck Matches: ".concat(j)),(s||v.isMatch)&&j){var P={key:n,arrayIndex:t,value:o,score:C};r.options.includeMatches&&(P.matchedIndices=v.matchedIndices);var I=p[a];I?I.output.push(P):(p[a]={item:i,output:[P]},g.push(p[a]))}}else if(c(o))for(var F=0,T=o.length;F<T;F+=1)e(F,o[F],i,a)}(i,a,s,h)}},{key:"_computeScore",value:function(e){this._log("\n\nComputing score:\n");for(var t=this._keyWeights,r=!!Object.keys(t).length,n=0,o=e.length;n<o;n+=1){for(var i=e[n],a=i.output,s=a.length,c=1,h=0;h<s;h+=1){var l=a[h],u=l.key,f=r?t[u]:1,v=0===l.score&&t&&t[u]>0?Number.EPSILON:l.score;c*=Math.pow(v,f)}i.score=c,this._log(i)}}},{key:"_sort",value:function(e){this._log("\n\nSorting...."),e.sort(this.options.sortFn)}},{key:"_format",value:function(e){var t=[];if(this.options.verbose){var r=[];this._log("\n\nOutput:\n\n",JSON.stringify(e,function(e,t){if("object"===n(t)&&null!==t){if(-1!==r.indexOf(t))return;r.push(t)}return t},2)),r=null}var o=[];this.options.includeMatches&&o.push(function(e,t){var r=e.output;t.matches=[];for(var n=0,o=r.length;n<o;n+=1){var i=r[n];if(0!==i.matchedIndices.length){var a={indices:i.matchedIndices,value:i.value};i.key&&(a.key=i.key),i.hasOwnProperty("arrayIndex")&&i.arrayIndex>-1&&(a.arrayIndex=i.arrayIndex),t.matches.push(a)}}}),this.options.includeScore&&o.push(function(e,t){t.score=e.score});for(var i=0,a=e.length;i<a;i+=1){var s=e[i];if(this.options.id&&(s.item=this.options.getFn(s.item,this.options.id)[0]),o.length){for(var c={item:s.item},h=0,l=o.length;h<l;h+=1)o[h](s,c);t.push(c)}else t.push(s.item)}return t}},{key:"_log",value:function(){var e;this.options.verbose&&(e=console).log.apply(e,arguments)}}])&&o(t.prototype,r),a&&o(t,a),e}();e.exports=h},function(e,t,r){function n(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}var o=r(2),i=r(3),a=r(6),s=function(){function e(t,r){var n=r.location,o=void 0===n?0:n,i=r.distance,s=void 0===i?100:i,c=r.threshold,h=void 0===c?.6:c,l=r.maxPatternLength,u=void 0===l?32:l,f=r.isCaseSensitive,v=void 0!==f&&f,p=r.tokenSeparator,d=void 0===p?/ +/g:p,g=r.findAllMatches,y=void 0!==g&&g,m=r.minMatchCharLength,k=void 0===m?1:m,b=r.includeMatches,S=void 0!==b&&b;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={location:o,distance:s,threshold:h,maxPatternLength:u,isCaseSensitive:v,tokenSeparator:d,findAllMatches:y,includeMatches:S,minMatchCharLength:k},this.pattern=v?t:t.toLowerCase(),this.pattern.length<=u&&(this.patternAlphabet=a(this.pattern))}var t,r,s;return t=e,(r=[{key:"search",value:function(e){var t=this.options,r=t.isCaseSensitive,n=t.includeMatches;if(r||(e=e.toLowerCase()),this.pattern===e){var a={isMatch:!0,score:0};return n&&(a.matchedIndices=[[0,e.length-1]]),a}var s=this.options,c=s.maxPatternLength,h=s.tokenSeparator;if(this.pattern.length>c)return o(e,this.pattern,h);var l=this.options,u=l.location,f=l.distance,v=l.threshold,p=l.findAllMatches,d=l.minMatchCharLength;return i(e,this.pattern,this.patternAlphabet,{location:u,distance:f,threshold:v,findAllMatches:p,minMatchCharLength:d,includeMatches:n})}}])&&n(t.prototype,r),s&&n(t,s),e}();e.exports=s},function(e,t){var r=/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;e.exports=function(e,t){var n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:/ +/g,o=new RegExp(t.replace(r,"\\$&").replace(n,"|")),i=e.match(o),a=!!i,s=[];if(a)for(var c=0,h=i.length;c<h;c+=1){var l=i[c];s.push([e.indexOf(l),l.length-1])}return{score:a?.5:1,isMatch:a,matchedIndices:s}}},function(e,t,r){var n=r(4),o=r(5);e.exports=function(e,t,r,i){for(var a=i.location,s=void 0===a?0:a,c=i.distance,h=void 0===c?100:c,l=i.threshold,u=void 0===l?.6:l,f=i.findAllMatches,v=void 0!==f&&f,p=i.minMatchCharLength,d=void 0===p?1:p,g=i.includeMatches,y=void 0!==g&&g,m=s,k=e.length,b=u,S=e.indexOf(t,m),x=t.length,M=[],_=0;_<k;_+=1)M[_]=0;if(-1!==S){var w=n(t,{errors:0,currentLocation:S,expectedLocation:m,distance:h});if(b=Math.min(w,b),-1!==(S=e.lastIndexOf(t,m+x))){var L=n(t,{errors:0,currentLocation:S,expectedLocation:m,distance:h});b=Math.min(L,b)}}S=-1;for(var A=[],O=1,C=x+k,j=1<<(x<=31?x-1:30),P=0;P<x;P+=1){for(var I=0,F=C;I<F;){n(t,{errors:P,currentLocation:m+F,expectedLocation:m,distance:h})<=b?I=F:C=F,F=Math.floor((C-I)/2+I)}C=F;var T=Math.max(1,m-F+1),N=v?k:Math.min(m+F,k)+x,z=Array(N+2);z[N+1]=(1<<P)-1;for(var E=N;E>=T;E-=1){var W=E-1,K=r[e.charAt(W)];if(K&&(M[W]=1),z[E]=(z[E+1]<<1|1)&K,0!==P&&(z[E]|=(A[E+1]|A[E])<<1|1|A[E+1]),z[E]&j&&(O=n(t,{errors:P,currentLocation:W,expectedLocation:m,distance:h}))<=b){if(b=O,(S=W)<=m)break;T=Math.max(1,2*m-S)}}if(n(t,{errors:P+1,currentLocation:m,expectedLocation:m,distance:h})>b)break;A=z}var $={isMatch:S>=0,score:0===O?.001:O};return y&&($.matchedIndices=o(M,d)),$}},function(e,t){e.exports=function(e,t){var r=t.errors,n=void 0===r?0:r,o=t.currentLocation,i=void 0===o?0:o,a=t.expectedLocation,s=void 0===a?0:a,c=t.distance,h=void 0===c?100:c,l=n/e.length,u=Math.abs(s-i);return h?l+u/h:u?1:l}},function(e,t){e.exports=function(){for(var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1,r=[],n=-1,o=-1,i=0,a=e.length;i<a;i+=1){var s=e[i];s&&-1===n?n=i:s||-1===n||((o=i-1)-n+1>=t&&r.push([n,o]),n=-1)}return e[i-1]&&i-n>=t&&r.push([n,i-1]),r}},function(e,t){e.exports=function(e){for(var t={},r=e.length,n=0;n<r;n+=1)t[e.charAt(n)]=0;for(var o=0;o<r;o+=1)t[e.charAt(o)]|=1<<r-o-1;return t}},function(e,t){var r=function(e){return Array.isArray?Array.isArray(e):"[object Array]"===Object.prototype.toString.call(e)},n=function(e){return null==e?"":function(e){if("string"==typeof e)return e;var t=e+"";return"0"==t&&1/e==-1/0?"-0":t}(e)},o=function(e){return"string"==typeof e},i=function(e){return"number"==typeof e};e.exports={get:function(e,t){var a=[];return function e(t,s){if(s){var c=s.indexOf("."),h=s,l=null;-1!==c&&(h=s.slice(0,c),l=s.slice(c+1));var u=t[h];if(null!=u)if(l||!o(u)&&!i(u))if(r(u))for(var f=0,v=u.length;f<v;f+=1)e(u[f],l);else l&&e(u,l);else a.push(n(u))}else a.push(t)}(e,t),a},isArray:r,isString:o,isNum:i,toString:n}}])});
 
 /***/ }),
 /* 40 */
@@ -5341,11 +4354,11 @@ var deepmerge_1 = deepmerge;
 
 __webpack_require__(42);
 
-__webpack_require__(51);
+__webpack_require__(52);
 
-__webpack_require__(70);
+__webpack_require__(71);
 
-__webpack_require__(72);
+__webpack_require__(73);
 
 /***/ }),
 /* 42 */
@@ -5363,7 +4376,7 @@ module.exports = __webpack_require__(2).Array.find;
 
 // 22.1.3.8 Array.prototype.find(predicate, thisArg = undefined)
 var $export = __webpack_require__(6);
-var $find = __webpack_require__(47)(5);
+var $find = __webpack_require__(48)(5);
 var KEY = 'find';
 var forced = true;
 // Shouldn't skip holes
@@ -5380,8 +4393,8 @@ __webpack_require__(28)(KEY);
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(10) && !__webpack_require__(22)(function () {
-  return Object.defineProperty(__webpack_require__(23)('div'), 'a', { get: function () { return 7; } }).a != 7;
+module.exports = !__webpack_require__(10) && !__webpack_require__(23)(function () {
+  return Object.defineProperty(__webpack_require__(24)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
@@ -5405,6 +4418,13 @@ module.exports = function (it, S) {
 
 /***/ }),
 /* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(14)('native-function-to-string', Function.toString);
+
+
+/***/ }),
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -5414,7 +4434,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 0 -> Array#forEach
@@ -5424,11 +4444,11 @@ module.exports = function (it) {
 // 4 -> Array#every
 // 5 -> Array#find
 // 6 -> Array#findIndex
-var ctx = __webpack_require__(14);
-var IObject = __webpack_require__(25);
-var toObject = __webpack_require__(16);
-var toLength = __webpack_require__(18);
-var asc = __webpack_require__(48);
+var ctx = __webpack_require__(15);
+var IObject = __webpack_require__(27);
+var toObject = __webpack_require__(17);
+var toLength = __webpack_require__(19);
+var asc = __webpack_require__(49);
 module.exports = function (TYPE, $create) {
   var IS_MAP = TYPE == 1;
   var IS_FILTER = TYPE == 2;
@@ -5464,11 +4484,11 @@ module.exports = function (TYPE, $create) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 9.4.2.3 ArraySpeciesCreate(originalArray, length)
-var speciesConstructor = __webpack_require__(49);
+var speciesConstructor = __webpack_require__(50);
 
 module.exports = function (original, length) {
   return new (speciesConstructor(original))(length);
@@ -5476,11 +4496,11 @@ module.exports = function (original, length) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(9);
-var isArray = __webpack_require__(50);
+var isArray = __webpack_require__(51);
 var SPECIES = __webpack_require__(0)('species');
 
 module.exports = function (original) {
@@ -5498,35 +4518,35 @@ module.exports = function (original) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.2.2 IsArray(argument)
-var cof = __webpack_require__(15);
+var cof = __webpack_require__(16);
 module.exports = Array.isArray || function isArray(arg) {
   return cof(arg) == 'Array';
 };
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(52);
-__webpack_require__(63);
+__webpack_require__(53);
+__webpack_require__(64);
 module.exports = __webpack_require__(2).Array.from;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $at = __webpack_require__(53)(true);
+var $at = __webpack_require__(54)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(54)(String, 'String', function (iterated) {
+__webpack_require__(55)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -5542,11 +4562,11 @@ __webpack_require__(54)(String, 'String', function (iterated) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(19);
-var defined = __webpack_require__(17);
+var toInteger = __webpack_require__(20);
+var defined = __webpack_require__(18);
 // true  -> String#at
 // false -> String#codePointAt
 module.exports = function (TO_STRING) {
@@ -5565,19 +4585,19 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(27);
+var LIBRARY = __webpack_require__(26);
 var $export = __webpack_require__(6);
-var redefine = __webpack_require__(24);
+var redefine = __webpack_require__(25);
 var hide = __webpack_require__(4);
-var Iterators = __webpack_require__(20);
-var $iterCreate = __webpack_require__(55);
+var Iterators = __webpack_require__(21);
+var $iterCreate = __webpack_require__(56);
 var setToStringTag = __webpack_require__(32);
-var getPrototypeOf = __webpack_require__(62);
+var getPrototypeOf = __webpack_require__(63);
 var ITERATOR = __webpack_require__(0)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
@@ -5641,12 +4661,12 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var create = __webpack_require__(56);
+var create = __webpack_require__(57);
 var descriptor = __webpack_require__(12);
 var setToStringTag = __webpack_require__(32);
 var IteratorPrototype = {};
@@ -5661,27 +4681,27 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(8);
-var dPs = __webpack_require__(57);
+var dPs = __webpack_require__(58);
 var enumBugKeys = __webpack_require__(31);
-var IE_PROTO = __webpack_require__(21)('IE_PROTO');
+var IE_PROTO = __webpack_require__(22)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(23)('iframe');
+  var iframe = __webpack_require__(24)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  __webpack_require__(61).appendChild(iframe);
+  __webpack_require__(62).appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -5708,12 +4728,12 @@ module.exports = Object.create || function create(O, Properties) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(7);
 var anObject = __webpack_require__(8);
-var getKeys = __webpack_require__(58);
+var getKeys = __webpack_require__(59);
 
 module.exports = __webpack_require__(10) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
@@ -5727,11 +4747,11 @@ module.exports = __webpack_require__(10) ? Object.defineProperties : function de
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(59);
+var $keys = __webpack_require__(60);
 var enumBugKeys = __webpack_require__(31);
 
 module.exports = Object.keys || function keys(O) {
@@ -5740,13 +4760,13 @@ module.exports = Object.keys || function keys(O) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(11);
 var toIObject = __webpack_require__(29);
 var arrayIndexOf = __webpack_require__(30)(false);
-var IE_PROTO = __webpack_require__(21)('IE_PROTO');
+var IE_PROTO = __webpack_require__(22)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -5763,10 +4783,10 @@ module.exports = function (object, names) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(19);
+var toInteger = __webpack_require__(20);
 var max = Math.max;
 var min = Math.min;
 module.exports = function (index, length) {
@@ -5776,7 +4796,7 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var document = __webpack_require__(3).document;
@@ -5784,13 +4804,13 @@ module.exports = document && document.documentElement;
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(11);
-var toObject = __webpack_require__(16);
-var IE_PROTO = __webpack_require__(21)('IE_PROTO');
+var toObject = __webpack_require__(17);
+var IE_PROTO = __webpack_require__(22)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -5803,21 +4823,21 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ctx = __webpack_require__(14);
+var ctx = __webpack_require__(15);
 var $export = __webpack_require__(6);
-var toObject = __webpack_require__(16);
-var call = __webpack_require__(64);
-var isArrayIter = __webpack_require__(65);
-var toLength = __webpack_require__(18);
-var createProperty = __webpack_require__(66);
-var getIterFn = __webpack_require__(67);
+var toObject = __webpack_require__(17);
+var call = __webpack_require__(65);
+var isArrayIter = __webpack_require__(66);
+var toLength = __webpack_require__(19);
+var createProperty = __webpack_require__(67);
+var getIterFn = __webpack_require__(68);
 
-$export($export.S + $export.F * !__webpack_require__(69)(function (iter) { Array.from(iter); }), 'Array', {
+$export($export.S + $export.F * !__webpack_require__(70)(function (iter) { Array.from(iter); }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
   from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
     var O = toObject(arrayLike);
@@ -5847,7 +4867,7 @@ $export($export.S + $export.F * !__webpack_require__(69)(function (iter) { Array
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -5865,11 +4885,11 @@ module.exports = function (iterator, fn, value, entries) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(20);
+var Iterators = __webpack_require__(21);
 var ITERATOR = __webpack_require__(0)('iterator');
 var ArrayProto = Array.prototype;
 
@@ -5879,7 +4899,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5894,12 +4914,12 @@ module.exports = function (object, index, value) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(68);
+var classof = __webpack_require__(69);
 var ITERATOR = __webpack_require__(0)('iterator');
-var Iterators = __webpack_require__(20);
+var Iterators = __webpack_require__(21);
 module.exports = __webpack_require__(2).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
@@ -5908,11 +4928,11 @@ module.exports = __webpack_require__(2).getIteratorMethod = function (it) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(15);
+var cof = __webpack_require__(16);
 var TAG = __webpack_require__(0)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
@@ -5937,7 +4957,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR = __webpack_require__(0)('iterator');
@@ -5965,15 +4985,15 @@ module.exports = function (exec, skipClosing) {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(71);
+__webpack_require__(72);
 module.exports = __webpack_require__(2).Array.includes;
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5992,7 +5012,7 @@ __webpack_require__(28)('includes');
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports) {
 
 // Polyfill for creating CustomEvents on IE9/10/11
@@ -6042,7 +5062,7 @@ try {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6056,7 +5076,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _redux = __webpack_require__(33);
 
-var _index = __webpack_require__(78);
+var _index = __webpack_require__(79);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -6282,7 +5302,7 @@ var Store = function () {
 exports.default = Store;
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6294,11 +5314,11 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(34)))
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ponyfill_js__ = __webpack_require__(77);
+/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ponyfill_js__ = __webpack_require__(78);
 /* global window */
 
 
@@ -6319,10 +5339,10 @@ if (typeof self !== 'undefined') {
 var result = Object(__WEBPACK_IMPORTED_MODULE_0__ponyfill_js__["a" /* default */])(root);
 /* harmony default export */ __webpack_exports__["a"] = (result);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(34), __webpack_require__(76)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(34), __webpack_require__(77)(module)))
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -6352,7 +5372,7 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6377,7 +5397,7 @@ function symbolObservablePonyfill(root) {
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6389,15 +5409,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(33);
 
-var _items = __webpack_require__(79);
+var _items = __webpack_require__(80);
 
 var _items2 = _interopRequireDefault(_items);
 
-var _groups = __webpack_require__(80);
+var _groups = __webpack_require__(81);
 
 var _groups2 = _interopRequireDefault(_groups);
 
-var _choices = __webpack_require__(81);
+var _choices = __webpack_require__(82);
 
 var _choices2 = _interopRequireDefault(_choices);
 
@@ -6429,7 +5449,7 @@ var rootReducer = function rootReducer(passedState, action) {
 exports.default = rootReducer;
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6503,7 +5523,7 @@ function items() {
 }
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6546,7 +5566,7 @@ function groups() {
 }
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6675,7 +5695,7 @@ function choices() {
 }
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6686,27 +5706,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.WrappedSelect = exports.WrappedInput = exports.List = exports.Input = exports.Container = exports.Dropdown = undefined;
 
-var _dropdown = __webpack_require__(83);
+var _dropdown = __webpack_require__(84);
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
 
-var _container = __webpack_require__(84);
+var _container = __webpack_require__(85);
 
 var _container2 = _interopRequireDefault(_container);
 
-var _input = __webpack_require__(85);
+var _input = __webpack_require__(86);
 
 var _input2 = _interopRequireDefault(_input);
 
-var _list = __webpack_require__(86);
+var _list = __webpack_require__(87);
 
 var _list2 = _interopRequireDefault(_list);
 
-var _wrappedInput = __webpack_require__(87);
+var _wrappedInput = __webpack_require__(88);
 
 var _wrappedInput2 = _interopRequireDefault(_wrappedInput);
 
-var _wrappedSelect = __webpack_require__(88);
+var _wrappedSelect = __webpack_require__(89);
 
 var _wrappedSelect2 = _interopRequireDefault(_wrappedSelect);
 
@@ -6720,7 +5740,7 @@ exports.WrappedInput = _wrappedInput2.default;
 exports.WrappedSelect = _wrappedSelect2.default;
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6810,7 +5830,7 @@ var Dropdown = function () {
 exports.default = Dropdown;
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7058,7 +6078,7 @@ var Container = function () {
 exports.default = Container;
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7261,7 +6281,7 @@ var Input = function () {
 exports.default = Input;
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7385,7 +6405,7 @@ var List = function () {
 exports.default = List;
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7452,7 +6472,7 @@ var WrappedInput = function (_WrappedElement) {
 exports.default = WrappedInput;
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7537,11 +6557,11 @@ var WrappedSelect = function (_WrappedElement) {
 exports.default = WrappedSelect;
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2016 Jed Watson.
+  Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
@@ -7563,8 +6583,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 			if (argType === 'string' || argType === 'number') {
 				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				classes.push(classNames.apply(null, arg));
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
 			} else if (argType === 'object') {
 				for (var key in arg) {
 					if (hasOwn.call(arg, key) && arg[key]) {
@@ -7578,6 +6601,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 
 	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
 		module.exports = classNames;
 	} else if (true) {
 		// register as 'classnames', consistent with npm package name
@@ -7592,7 +6616,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7651,7 +6675,7 @@ var clearChoices = exports.clearChoices = function clearChoices() {
 };
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7703,7 +6727,7 @@ var highlightItem = exports.highlightItem = function highlightItem(id, highlight
 };
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7728,7 +6752,7 @@ var addGroup = exports.addGroup = function addGroup(value, id, active, disabled)
 };
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

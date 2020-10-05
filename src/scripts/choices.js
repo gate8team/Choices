@@ -1383,7 +1383,7 @@ class Choices {
   _onMouseDown(event) {
     const { target, shiftKey } = event;
     // If we have our mouse down on the scrollbar and are on IE11...
-    if (target === this.choiceList && isIE11()) {
+    if (this.choiceList.element.contains(target) && isIE11()) {
       this._isScrollingOnIe = true;
     }
 
@@ -1691,9 +1691,7 @@ class Choices {
     const choices = this._store.choices;
     const choiceLabel = label || value;
     const choiceId = choices ? choices.length + 1 : 1;
-    const choiceElementId = `${this._baseId}-${
-      this._idNames.itemChoice
-    }-${choiceId}`;
+    const choiceElementId = `${this._baseId}-${this._idNames.itemChoice}-${choiceId}`;
 
     this._store.dispatch(
       addChoice({
